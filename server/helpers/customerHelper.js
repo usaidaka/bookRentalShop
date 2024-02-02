@@ -188,11 +188,20 @@ const patchCustomer = async (id, data) => {
   }
 };
 
-const deleteCustomer = async (id) => {
+const deleteCustomer = async (id, idAuth) => {
   let response = {};
 
   const transaction = await db.sequelize.transaction();
   try {
+    if (Number(id) === Number(idAuth.id)) {
+      response = {
+        ok: false,
+        message: "You cannot delete your own self",
+      };
+      await transaction.rollback();
+      return response;
+    }
+
     const isCustomerExist = await getCustomerDetail(id);
 
     if (!isCustomerExist.ok) {

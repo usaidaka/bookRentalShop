@@ -93,8 +93,9 @@ const editCustomer = async (request, reply) => {
 const removeCustomer = async (request, reply) => {
   try {
     const { id } = request.params;
+    const idAuth = request.user;
 
-    const response = await CustomerHelper.deleteCustomer(id);
+    const response = await CustomerHelper.deleteCustomer(id, idAuth);
 
     if (!response.ok) {
       return reply.status(400).json(response);
