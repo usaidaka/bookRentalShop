@@ -162,8 +162,7 @@ const patchCustomer = async (id, data) => {
 
     const result = await db.Customer.update(
       { name, phone, address },
-      { where: { id } },
-      { transaction }
+      { where: { id }, transaction }
     );
 
     if (!result) {
@@ -205,6 +204,19 @@ const deleteCustomer = async (id) => {
       return response;
     }
 
+    const isCustomerStillHaveLending = await db.Lending.findOne({
+      where: { id },
+    });
+
+    if (isCustomerStillHaveLending) {
+      response = {
+        ok: false,
+        message:
+          "This customer still have lending book in your shop. He/she cannot cancel his/her self. Should to return the book first",
+      };
+      await transaction.rollback();
+      return response;
+    }
     await db.Customer.destroy({ where: { id } }, { transaction });
 
     response = {

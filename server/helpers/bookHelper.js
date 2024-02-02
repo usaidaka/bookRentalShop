@@ -139,8 +139,7 @@ const patchBook = async (id, data) => {
 
     const result = await db.Book.update(
       { title, author, idCategory },
-      { where: { id } },
-      { transaction }
+      { where: { id }, transaction }
     );
 
     if (!result) {

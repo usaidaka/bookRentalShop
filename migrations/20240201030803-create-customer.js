@@ -36,6 +36,10 @@ module.exports = {
       credential: {
         type: Sequelize.STRING,
       },
+      credentialExpAt: {
+        allowNull: true,
+        type: Sequelize.DATE,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

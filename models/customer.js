@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       address: DataTypes.STRING,
       isAdmin: DataTypes.BOOLEAN,
       credential: DataTypes.STRING,
+      credentialExpAt: DataTypes.DATE,
     },
     {
       sequelize,

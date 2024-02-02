@@ -100,7 +100,7 @@ const changePassword = async (request, reply) => {
 
 Router.post("/login", login);
 Router.post("/register-admin", addAdmin);
-Router.post("/forgot-password", forgotPassword);
+Router.patch("/forgot-password", forgotPassword);
 Router.patch("/reset-password", resetPassword);
 Router.patch("/change-password", Middleware.validateToken, changePassword);
 

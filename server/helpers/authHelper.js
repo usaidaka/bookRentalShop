@@ -4,6 +4,7 @@ const _ = require("lodash");
 const jwt = require("jsonwebtoken");
 const { Op } = require("sequelize");
 const crypto = require("crypto");
+const moment = require("moment");
 
 const db = require("../../models");
 const GeneralHelper = require("./generalHelper");
@@ -131,12 +132,14 @@ const forgotPassword = async (dataObject) => {
       .toString()
       .substring(2, 8);
 
+    const expDate = new Date(moment().add(10, "minutes").format());
+
     await db.Customer.update(
       {
         credential: __generateCredential,
+        credentialExpAt: expDate,
       },
-      { where: { id: customer.id } },
-      { transaction }
+      { where: { id: customer.id }, transaction }
     );
 
     await transaction.commit();
@@ -184,10 +187,10 @@ const resetPassword = async (dataObject) => {
     await db.Customer.update(
       {
         credential: null,
+        credentialExpAt: null,
         password: hashedPass,
       },
-      { where: { id: customer.id } },
-      { transaction }
+      { where: { id: customer.id }, transaction }
     );
 
     await transaction.commit();
@@ -231,8 +234,7 @@ const changePassword = async (dataObject) => {
       {
         password: hashedPass,
       },
-      { where: { id } },
-      { transaction }
+      { where: { id }, transaction }
     );
 
     await transaction.commit();

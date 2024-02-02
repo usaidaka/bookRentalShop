@@ -8,8 +8,6 @@ const makePassword = async (pass) => {
   return hashed;
 };
 
-console.log(process.env.DEFAULT_PASSWORD, "process.env.DEFAULT_PASSWORD");
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -33,6 +31,7 @@ module.exports = {
         address: "Jl TB Simatupang",
         isAdmin: true,
         credential: null,
+        credentialExpAt: null,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -46,6 +45,7 @@ module.exports = {
         address: "Jl Dewi Sartika",
         isAdmin: false,
         credential: null,
+        credentialExpAt: null,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -59,6 +59,7 @@ module.exports = {
         address: "Jl Sudirman",
         isAdmin: false,
         credential: null,
+        credentialExpAt: null,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
@@ -72,6 +73,7 @@ module.exports = {
         address: "Jl Gatot Subroto",
         isAdmin: false,
         credential: null,
+        credentialExpAt: null,
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,
